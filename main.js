@@ -105,12 +105,19 @@ window.SensorHistogram.prototype = {
         
     },
 
-    update : function(data) {
+    update : function(originalData) {
 
-        data = this.histogramify(data);
+        var data = this.histogramify(originalData);
 
         if(this.data.length == 0){
-            xMax = data.length + 2;
+            var xMax = data.length + 2;
+            var yMax = Math.max.apply(null, originalData.map(function(element) {
+             
+                return element["max"];
+            }));
+            this.options.xaxis.max = xMax;
+            this.options.yaxis.max = yMax;
+            console.log(xMax, yMax);
             this.plot = $.plot(this.dom, this.data, this.options);
         }
         else {
