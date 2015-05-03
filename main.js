@@ -49,7 +49,7 @@ window.AjaxDataSource.prototype = {
                 
             },
             complete: function() {
-                setTimeout(window.pullDataSource, 500);
+                setTimeout(window.pullDataSource, 1000);
             }
         });
 
@@ -119,8 +119,8 @@ window.SensorHistogram.prototype = {
              
                 return element["max"];
             }));
-            // this.options.xaxis.max = xMax;
-            // this.options.yaxis.max = yMax;
+            this.options.xaxis.max = xMax;
+            this.options.yaxis.max = yMax;
 
             console.log(xMax, yMax);
             this.plot = $.plot(this.dom, data, this.options);
@@ -183,7 +183,7 @@ window.SensorHistogram.prototype = {
                 
         var serie = {
             label: "Sensor " + sensorId,
-            data: [[sensorPosition, sensorData["value"]]],
+            data: [[sensorPosition, parseFloat(sensorData["value"])]],
             bars: {
                 show: true,
                 fill: true,
