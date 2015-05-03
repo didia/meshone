@@ -22,21 +22,28 @@
       // })
 
 	 //192.168.10.5
-	  var datasource = new AjaxDataSource("http://localhost:3000/datas");
-	  var histogram = new SensorHistogram(datasource, "#placeholder");
+		var datasource = new AjaxDataSource("http://localhost:3000/datas");
+		var histogram = new SensorHistogram(datasource, "#placeholder");
+		histogram.options.yaxis.axisLabel = 'Distance (cm)';
+		histogram.port = 1;
 
-	  window.pullDataSource = function() {
-	  	datasource.update();
-	  }
-	  datasource.registerCallback(function(data) {
-	  	histogram.update(data);
-	  	});
+		var histogram2 = new SensorHistogram(datasource, "#placeholder2");
+		histogram2.options.yaxis.axisLabel = 'Temperature (C)';
+		histogram.port = 0;
+
+		window.pullDataSource = function() {
+			datasource.update();
+		}
+		datasource.registerCallback(function(data) {
+			histogram.update(data);
+			histogram2.update(data);
+		});
 	  
 
 
       // var sensorDatas = getSensorData(histogramify);
       // drawHistogram("#placeholder", sensorDatas);
-  });
+  	});
 
 
 	// $(function() {
@@ -173,7 +180,12 @@
 		<div class="demo-container">
 			<div id="placeholder" class="demo-placeholder">
 
-      </div>
+      		</div>
+		</div>
+		<div class="demo-container">
+			<div id="placeholder2" class="demo-placeholder">
+
+      		</div>
 		</div>
 
 	</div>

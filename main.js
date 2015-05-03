@@ -58,29 +58,26 @@ window.AjaxDataSource.prototype = {
 
 window.SensorHistogram = function(dataSource, domElementSelector) {
     this.dataSource = dataSource;
+    this.port = 0;
     this.dom = domElementSelector;
     this.data = [];
     this.colors = {};
     this.options = {
-        series: {
-            bars: {
-                show: true
-            }
-        },
-        bars: {
-            align: "center",
-            barWidth: 0.5
-        },
-
         xaxis: {
+            min:0,
+            max:3,
+            //tickSize: [1, "month"],
+            //monthNames: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            tickLength: 0, // hide gridlines
             axisLabel: 'Capteurs',
             axisLabelUseCanvas: true,
             axisLabelFontSizePixels: 12,
             axisLabelFontFamily: 'Verdana, Arial, Helvetica, Tahoma, sans-serif',
-            axisLabelPadding: 5
+            axisLabelPadding: 5,
+            ticks:[[0.25,'1'],[1.25,'2']]
+   
         },
         yaxis: {
-            axisLabel: 'Distance (cm)',
             axisLabelUseCanvas: true,
             axisLabelFontSizePixels: 12,
             axisLabelFontFamily: 'Verdana, Arial, Helvetica, Tahoma, sans-serif',
@@ -91,6 +88,9 @@ window.SensorHistogram = function(dataSource, domElementSelector) {
         },
         grid : {
             borderWidth : 2
+        },
+        legend: {
+            show: false,
         }
     };
    
@@ -105,7 +105,7 @@ window.SensorHistogram.prototype = {
 
     update : function(originalData) {
 
-        var data = this.histogramify(originalData);
+        var data = this.histogramify(originalData,this.port);
 
         if(this.data.length == 0){
             var xMax = data.length + 2;
@@ -115,6 +115,7 @@ window.SensorHistogram.prototype = {
             }));
             this.options.xaxis.max = xMax;
             this.options.yaxis.max = yMax;
+
             console.log(xMax, yMax);
             this.plot = $.plot(this.dom, data, this.options);
         }
@@ -127,8 +128,8 @@ window.SensorHistogram.prototype = {
 
     },
 
-    histogramify : function(sensorDatas) {
-        var sensorDatas = this.groupSensorDataByKey(sensorDatas);
+    histogramify : function(sensorDatas, port) {
+        var sensorDatas = this.groupSensorDataByKey(sensorDatas,port);
         console.log(sensorDatas);
         var data = [];
         var index = 0
@@ -145,11 +146,12 @@ window.SensorHistogram.prototype = {
         return data;
     },
 
-    groupSensorDataByKey : function(sensorDatas) {
+    groupSensorDataByKey : function(sensorDatas, port) {
         var groups = {};
         for(var i = 0; i < sensorDatas.length; i++) {
             var sensorData = sensorDatas[i];
             var key = sensorData["satId"];
+            var nport = sensorData["portId"];
             if(!(key in groups)){
                 groups[key] = [];
             }
@@ -182,7 +184,7 @@ window.SensorHistogram.prototype = {
                 lineWidth: 0,
                 order: sensorPosition + 2,
                 fillColor:  color,
-                barWidth: 0.8,
+                barWidth: 0.5,
                 align: 'left'
             },
 
