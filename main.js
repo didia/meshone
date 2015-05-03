@@ -139,7 +139,8 @@ window.SensorHistogram.prototype = {
             var lastElement = sensorData[sensorData.length - 1]
             console.log("Sensor Data");
             console.log(sensorData);
-            data.push(this.getSensorSerieFromSensorData(index++, lastElement));
+            data.push([index++, lastElement["value"]]);
+            // data.push(this.getSensorSerieFromSensorData(index++, lastElement));
         }
        
         
