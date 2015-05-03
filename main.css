@@ -1,7 +1,7 @@
 * {	padding: 0; margin: 0; vertical-align: top; }
 
 body {
-	background: url(background.png) repeat-x;
+	background-color:#45afdc;
 	font: 18px/1.5em "proxima-nova", Helvetica, Arial, sans-serif;
 }
 
@@ -48,13 +48,12 @@ input[type=checkbox] {
 	font-size: 42px;
 	font-weight: bold;
 	text-decoration: none;
-	color: #000;
+	color: white;
 }
 
 #content {
 	width: 880px;
 	margin: 0 auto;
-	padding: 10px;
 }
 
 #footer {
@@ -70,7 +69,6 @@ input[type=checkbox] {
 	width: 850px;
 	height: 450px;
 	padding: 20px 15px 15px 15px;
-	margin: 15px auto 30px auto;
 	border: 1px solid #ddd;
 	background: #fff;
 	background: linear-gradient(#f6f6f6 0, #fff 50px);

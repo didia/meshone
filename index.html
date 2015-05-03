@@ -1,22 +1,28 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>Flot Examples: AJAX</title>
-	<link href="./main.css" rel="stylesheet" type="text/css">
+	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <link href="./main.css" rel="stylesheet" type="text/css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<script language="javascript" type="text/javascript" src="./jquery.flot.js"></script>
-  <script language="javascript" type="text/javascript" src="./main.js"></script>
+	<script language="javascript" type="text/javascript" src="./jquery.flot.labels.js"></script>
+	<script language="javascript" type="text/javascript" src="./jquery.flot.axislabels.js"></script>
+    <script language="javascript" type="text/javascript" src="./main.js"></script>
 	<script type="text/javascript">
-	 $(document).ready(function(){
+
+	$(document).ready(function(){
 
       // getDataFromServer(function(data){
       // 	drawHistogram("#placeholder", data);
       // })
-	  var datasource = new AjaxDataSource("http://192.168.10.5:3000/datas");
+
+	 //192.168.10.5
+	  var datasource = new AjaxDataSource("http://localhost:3000/datas");
 	  var histogram = new SensorHistogram(datasource, "#placeholder");
 
 	  window.pullDataSource = function() {
@@ -25,12 +31,14 @@
 	  datasource.registerCallback(function(data) {
 	  	histogram.update(data);
 	  	});
-	  histogram.showTime();
+	  
 
 
       // var sensorDatas = getSensorData(histogramify);
       // drawHistogram("#placeholder", sensorDatas);
   });
+
+
 	// $(function() {
 
 	// 	var series = {
@@ -156,7 +164,8 @@
 <body>
 
 	<div id="header">
-		<h2>Sensor Network Monitoring</h2>
+		<h2>MeshOne</h2>
+		<img>
 	</div>
 
 	<div id="content">

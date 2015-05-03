@@ -49,7 +49,7 @@ window.AjaxDataSource.prototype = {
                 
             },
             complete: function() {
-                setTimeout(window.pullDataSource, 3000);
+                setTimeout(window.pullDataSource, 500);
             }
         });
 
@@ -62,33 +62,40 @@ window.SensorHistogram = function(dataSource, domElementSelector) {
     this.data = [];
     this.colors = {};
     this.options = {
-        bars:  {
-            show: true
+        series: {
+            bars: {
+                show: true
+            }
+        },
+        bars: {
+            align: "center",
+            barWidth: 0.5
         },
 
         xaxis: {
-            min: 0,
-            max: 4,
-            tickLength: 3, 
-            axisLabel: 'Sensors',
-            tickSize : [1, 'Sensor'],
+            axisLabel: 'Month',
             axisLabelUseCanvas: true,
             axisLabelFontSizePixels: 12,
             axisLabelFontFamily: 'Verdana, Arial, Helvetica, Tahoma, sans-serif',
-            axisLabelPadding: 10
-
+            axisLabelPadding: 5
         },
-
-        yaxis : {
-            min:0,
-            max:3
+        yaxis: {
+            axisLabel: 'Value',
+            axisLabelUseCanvas: true,
+            axisLabelFontSizePixels: 12,
+            axisLabelFontFamily: 'Verdana, Arial, Helvetica, Tahoma, sans-serif',
+            axisLabelPadding: 5
         },
+        axisLabels: {
+            show: true
+        },
+       
 
         grid : {
             borderWidth : 2
         }
     };
-      
+   
 }
 
 window.SensorHistogram.prototype = {
@@ -155,7 +162,9 @@ window.SensorHistogram.prototype = {
             color = this.colors[sensorId];
         }
         else {
-            color = '#'+Math.floor(Math.random()*16777215).toString(16);
+            var value = Math.random() * 0xFF | 0;
+            var grayscale = (value << 16) | (value << 8) | value;
+            var color = '#ffc800';
             this.colors[sensorId] = color;
         }
                 
