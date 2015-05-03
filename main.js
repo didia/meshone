@@ -62,34 +62,27 @@ window.SensorHistogram = function(dataSource, domElementSelector) {
     this.data = [];
     this.colors = {};
     this.options = {
-        series: {
-            bars: {
-                show: true
-            }
-        },
-        bars: {
-            align: "center",
-            barWidth: 0.5
+         bars:  {
+            show: true
         },
 
         xaxis: {
-            axisLabel: 'Month',
+            min: 0,
+            max: 4,
+            tickLength: 3, 
+            axisLabel: 'Sensors',
+            tickSize : [1, 'Sensor'],
             axisLabelUseCanvas: true,
             axisLabelFontSizePixels: 12,
             axisLabelFontFamily: 'Verdana, Arial, Helvetica, Tahoma, sans-serif',
-            axisLabelPadding: 5
+            axisLabelPadding: 10
+
         },
-        yaxis: {
-            axisLabel: 'Value',
-            axisLabelUseCanvas: true,
-            axisLabelFontSizePixels: 12,
-            axisLabelFontFamily: 'Verdana, Arial, Helvetica, Tahoma, sans-serif',
-            axisLabelPadding: 5
+
+        yaxis : {
+            min:0,
+            max:3
         },
-        axisLabels: {
-            show: true
-        },
-       
 
         grid : {
             borderWidth : 2
