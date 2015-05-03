@@ -56,9 +56,9 @@ window.AjaxDataSource.prototype = {
     }
 }
 
-window.SensorHistogram = function(dataSource, domElementSelector) {
+window.SensorHistogram = function(dataSource, domElementSelector, port) {
     this.dataSource = dataSource;
-    this.port = 0;
+    this.port = port;
     this.dom = domElementSelector;
     this.data = [];
     this.colors = {};
@@ -104,7 +104,13 @@ window.SensorHistogram.prototype = {
     },
 
     update : function(originalData) {
+        var that = this;
+        originalData = originalData.filter(function(myData) {
+            console.log(that.port);
+            return parseInt(myData["portId"]) === that.port;
+        });
 
+        console.log(originalData);
         var data = this.histogramify(originalData,this.port);
 
         if(this.data.length == 0){
@@ -113,8 +119,8 @@ window.SensorHistogram.prototype = {
              
                 return element["max"];
             }));
-            this.options.xaxis.max = xMax;
-            this.options.yaxis.max = yMax;
+            // this.options.xaxis.max = xMax;
+            // this.options.yaxis.max = yMax;
 
             console.log(xMax, yMax);
             this.plot = $.plot(this.dom, data, this.options);

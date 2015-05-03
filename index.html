@@ -22,14 +22,14 @@
       // })
 
 	 //192.168.10.5
-		var datasource = new AjaxDataSource("http://localhost:3000/datas");
-		var histogram = new SensorHistogram(datasource, "#placeholder");
+		var datasource = new AjaxDataSource("http://10.248.144.57:3000/datas");
+		var histogram = new SensorHistogram(datasource, "#placeholder", 1);
 		histogram.options.yaxis.axisLabel = 'Distance (cm)';
-		histogram.port = 1;
+	
 
-		var histogram2 = new SensorHistogram(datasource, "#placeholder2");
+		var histogram2 = new SensorHistogram(datasource, "#placeholder2", 0);
 		histogram2.options.yaxis.axisLabel = 'Temperature (C)';
-		histogram.port = 0;
+	
 
 		window.pullDataSource = function() {
 			datasource.update();
