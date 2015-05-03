@@ -73,14 +73,14 @@ window.SensorHistogram = function(dataSource, domElementSelector) {
         },
 
         xaxis: {
-            axisLabel: 'Month',
+            axisLabel: 'Capteurs',
             axisLabelUseCanvas: true,
             axisLabelFontSizePixels: 12,
             axisLabelFontFamily: 'Verdana, Arial, Helvetica, Tahoma, sans-serif',
             axisLabelPadding: 5
         },
         yaxis: {
-            axisLabel: 'Value',
+            axisLabel: 'Distance (cm)',
             axisLabelUseCanvas: true,
             axisLabelFontSizePixels: 12,
             axisLabelFontFamily: 'Verdana, Arial, Helvetica, Tahoma, sans-serif',
@@ -89,8 +89,6 @@ window.SensorHistogram = function(dataSource, domElementSelector) {
         axisLabels: {
             show: true
         },
-       
-
         grid : {
             borderWidth : 2
         }
@@ -118,7 +116,7 @@ window.SensorHistogram.prototype = {
             this.options.xaxis.max = xMax;
             this.options.yaxis.max = yMax;
             console.log(xMax, yMax);
-            this.plot = $.plot(this.dom, this.data, this.options);
+            this.plot = $.plot(this.dom, data, this.options);
         }
         else {
             this.plot.setData(data);
