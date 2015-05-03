@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Flot Examples: AJAX</title>
+	<link href="./main.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script language="javascript" type="text/javascript" src="./jquery.flot.js"></script>
+  <script language="javascript" type="text/javascript" src="./main.js"></script>
+	<script type="text/javascript">
+	 $(document).ready(function(){
+
+      // getDataFromServer(function(data){
+      // 	drawHistogram("#placeholder", data);
+      // })
+	  var datasource = new AjaxDataSource("http://192.168.10.5:3000/datas");
+	  var histogram = new SensorHistogram(datasource, "#placeholder");
+
+	  window.pullDataSource = function() {
+	  	datasource.update();
+	  }
+	  datasource.registerCallback(function(data) {
+	  	histogram.update(data);
+	  	});
+	  histogram.showTime();
+
+
+      // var sensorDatas = getSensorData(histogramify);
+      // drawHistogram("#placeholder", sensorDatas);
+  });
+	// $(function() {
+
+	// 	var series = {
+	// 		"label": "Temperature (Sensor 2)",
+	// 		"data": [[0, 20], [5, 24],[10, 25],[15, 27],["00:15", 29], ["00:20", 28], ["00:25", 27], ["00:30", 26], ["00:35", 25], ["00:40", 24],]
+
+	// 	}
+
+	// 	var options = {
+	// 		lines: {
+	// 			show: true
+	// 		},
+	// 		points: {
+	// 			show: true
+	// 		},
+	// 		xaxis: {
+	// 			tickDecimals: 0,
+	// 			tickSize: 1
+	// 		}
+	// 	};
+
+	// 	var data = [];
+
+	// 	data.push(series);
+
+	// 	$.plot("#placeholder", data, options);
+
+	// 	// Fetch one series, adding to what we already have
+
+	// 	var alreadyFetched = {};
+
+	// 	$("button.fetchSeries").click(function () {
+
+	// 		var button = $(this);
+
+	// 		// Find the URL in the link right next to us, then fetch the data
+
+	// 		var dataurl = button.siblings("a").attr("href");
+
+	// 		function onDataReceived(series) {
+
+	// 			// Extract the first coordinate pair; jQuery has parsed it, so
+	// 			// the data is now just an ordinary JavaScript object
+
+	// 			var firstcoordinate = "(" + series.data[0][0] + ", " + series.data[0][1] + ")";
+	// 			button.siblings("span").text("Fetched " + series.label + ", first point: " + firstcoordinate);
+
+	// 			// Push the new data onto our existing data array
+
+	// 			if (!alreadyFetched[series.label]) {
+	// 				alreadyFetched[series.label] = true;
+	// 				data.push(series);
+	// 			}
+
+	// 			$.plot("#placeholder", data, options);
+	// 		}
+
+	// 		$.ajax({
+	// 			url: dataurl,
+	// 			type: "GET",
+	// 			dataType: "json",
+	// 			success: onDataReceived
+	// 		});
+	// 	});
+
+	// 	// Initiate a recurring data update
+
+	// 	$("button.dataUpdate").click(function () {
+
+	// 		data = [];
+	// 		alreadyFetched = {};
+
+	// 		$.plot("#placeholder", data, options);
+
+	// 		var iteration = 0;
+
+	// 		function fetchData() {
+
+	// 			++iteration;
+
+	// 			function onDataReceived(series) {
+
+	// 				// Load all the data in one pass; if we only got partial
+	// 				// data we could merge it with what we already have.
+
+	// 				data = [ series ];
+	// 				$.plot("#placeholder", data, options);
+	// 			}
+
+	// 			// Normally we call the same URL - a script connected to a
+	// 			// database - but in this case we only have static example
+	// 			// files, so we need to modify the URL.
+
+	// 			$.ajax({
+	// 				url: "data-eu-gdp-growth-" + iteration + ".json",
+	// 				type: "GET",
+	// 				dataType: "json",
+	// 				success: onDataReceived
+	// 			});
+
+	// 			if (iteration < 5) {
+	// 				setTimeout(fetchData, 1000);
+	// 			} else {
+	// 				data = [];
+	// 				alreadyFetched = {};
+	// 			}
+	// 		}
+
+	// 		setTimeout(fetchData, 1000);
+	// 	});
+
+	// 	// Load the first series by default, so we don't have an empty plot
+
+	// 	$("button.fetchSeries:first").click();
+
+	// 	// Add the Flot version string to the footer
+
+	// 	$("#footer").prepend("Flot " + $.plot.version + " &ndash; ");
+	// });
+
+	</script>
+</head>
+<body>
+
+	<div id="header">
+		<h2>Sensor Network Monitoring</h2>
+	</div>
+
+	<div id="content">
+
+		<div class="demo-container">
+			<div id="placeholder" class="demo-placeholder">
+
+      </div>
+		</div>
+
+	</div>
+
+
+</body>
+</html>
